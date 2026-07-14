@@ -22,7 +22,7 @@ No platform host filesystem path is exposed to participants. `/input` and `/outp
 
 ## Execution Model
 
-The platform runs the same image once for each task: Task 1, Task 2, and Task 3. Each run receives one read-only input tree and one writable output tree.
+~~The platform runs the same image once for each task: Task 1, Task 2, and Task 3. Each run receives one read-only input tree and one writable output tree.~~ 每个任务有一个docker image
 
 Dataset construction, organizer-side segmentation, host storage, and transfer are platform-internal operations. They do not change the participant interface and are not visible inside the container.
 
@@ -33,7 +33,7 @@ Container mounts:
 | `/input` | Read-only | One task's input files and `manifest.json` |
 | `/output` | Writable | Predictions for that task |
 
-Environment variables:
+~~Environment variables:~~ 应该用不上吧
 
 | Variable | Value |
 |---|---|
@@ -92,7 +92,7 @@ Do not replace `SRC` with `TGT` in directory names. The mapping directory remain
 
 ## Manifest
 
-`manifest.json` is the source of truth for the current run. Do not derive additional cases or mappings outside the manifest.
+~~`manifest.json` is the source of truth for the current run.~~ Do not derive additional cases or mappings outside the `/input/manifest.json` file.
 
 Example:
 
@@ -158,7 +158,7 @@ For Task 1 and Task 2, the organizers generate segmentation from submitted T1W p
 
 Before the container exits successfully:
 
-- Read the manifest belonging to the current `TASK_ID`.
+~~- Read the manifest belonging to the current `TASK_ID`.~~ 固定的 /input/manifest.json 吧
 - Produce exactly one output for every manifest sample.
 - Use each sample's exact `output` relative path.
 - Preserve the full `(364, 436, 364)` volume.
